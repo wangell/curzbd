@@ -1,0 +1,16 @@
+[General]
+RefreshRate = 15
+
+[Colors]
+ColorPair1 = 7,0
+ColorPair2 = 6,0
+ColorPair3 = 1,0
+ColorPair4 = 0,1
+ColorPair5 = 0,1
+ColorPair6 = 0,1
+
+[Sabnzbd]
+Host = localhost
+Port = 8080
+ApiKey = 0000000000000000000
+HttpMethod = http
