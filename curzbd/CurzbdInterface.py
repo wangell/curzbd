@@ -37,6 +37,12 @@ class CurzbdInterface:
         }
 
         #Initialize windows
+        self.construct_windows()
+        self.activeWindow = 1
+
+        self.__loop()
+
+    def construct_windows(self):
         nav = Navbar.Navbar(self.stdscr)
         queueWindow = QueueWindow.QueueWindow(self.stdscr, self.sabnzbd)
         historyWindow = HistoryWindow.HistoryWindow(self.stdscr, self.sabnzbd)
@@ -45,9 +51,6 @@ class CurzbdInterface:
 
         self.windows = { 1 : queueWindow, 2 : historyWindow, 3 : configWindow, 4 : helpWindow }
         self.navbar = nav
-        self.activeWindow = 1
-
-        self.__loop()
 
     def __loop(self):
 
@@ -70,7 +73,7 @@ class CurzbdInterface:
         if key in self.global_keys:
             self.global_keys[key](key)
         elif key == "KEY_RESIZE":
-            quit()
+            self.construct_windows()
         else:
             self.windows[self.activeWindow].process_key(key)
 
@@ -78,7 +81,6 @@ class CurzbdInterface:
     def activate_window(self, key):
         if self.activeWindow != int(key):
             self.activeWindow = int(key)
-            self.activeChanged = True
 
     def quit_sequence(self, key):
         quit()
