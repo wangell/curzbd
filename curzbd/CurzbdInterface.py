@@ -16,7 +16,7 @@ class CurzbdInterface:
 
     def __setup(self, stdscr):
         self.stdscr = stdscr
-        self.stdscr.nodelay(1)
+        curses.use_default_colors()
         curses.init_color(curses.COLOR_WHITE, 1000, 1000, 1000)
 
         #Initialize colors
@@ -61,13 +61,13 @@ class CurzbdInterface:
 
             curses.doupdate()
 
-            #Input
             try:
                 key = self.stdscr.getkey()
             except:
                 continue
             
             self.__process_input(key)
+            
 
     def __process_input(self, key):
         if key in self.global_keys:

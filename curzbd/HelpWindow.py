@@ -16,7 +16,9 @@ class HelpWindow(CurzbdWindow.CurzbdWindow):
         pass
 
     def display(self):
-        #self.window.clear()
+
+        maxy,maxx = self.window.getmaxyx()
+
         self.window.erase()
-        self.window.addstr(0, 0, "Check")
+        self.window.addstr(round(maxy/2), round(maxx/2), "X {} Y {}".format(round(maxx/2),round(maxy/2)))
         self.window.noutrefresh()

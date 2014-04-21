@@ -6,7 +6,8 @@ import CurzbdWindow
 class Navbar(CurzbdWindow.CurzbdWindow):
 
     def __init__(self, stdscr):
-        self.window = stdscr.derwin(1, 80, 0, 0)
+        maxY,maxX = stdscr.getmaxyx()
+        self.window = stdscr.derwin(1, maxX, 0, 0)
         self.links = ["1: Queue", "2: History", "3: Config", "4: Help"]
         self.spacing = 5
 
