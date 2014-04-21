@@ -9,6 +9,8 @@ class HelpWindow(CurzbdWindow.CurzbdWindow):
         self.headings = ["Filename", "Size", "Percent", "Status"]
         self.stdscr = stdscr
 
+        self.construct_window()
+
     def update(self):
         q = fetch_queue()
 
