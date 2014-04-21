@@ -1,0 +1,3 @@
+- Add multithreading for automatic timed updates of current screen
+- Add download speed to navbar
+- Add dynamic resizing to each window
