@@ -30,12 +30,13 @@ def create_default_config(config):
     config['General']['RefreshRate'] = '15'
 
     config['Colors'] = {}
-    config['Colors']['ColorPair1'] = '7,0'
-    config['Colors']['ColorPair2'] = '6,0'
-    config['Colors']['ColorPair3'] = '1,0'
+    config['Colors']['ColorPair1'] = '7,-1'
+    config['Colors']['ColorPair2'] = '6,-1'
+    config['Colors']['ColorPair3'] = '1,-1'
     config['Colors']['ColorPair4'] = '0,1'
     config['Colors']['ColorPair5'] = '0,1'
     config['Colors']['ColorPair6'] = '0,1'
+    config['Colors']['ColorPair7'] = '0,-1'
 
     config['Sabnzbd'] = {}
     config['Sabnzbd']['Host'] = 'localhost'
