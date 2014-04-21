@@ -5,12 +5,15 @@ import CurzbdWindow
 class HelpWindow(CurzbdWindow.CurzbdWindow):
 
     def __init__(self, stdscr):
-        self.window = stdscr.derwin(2, 0)
         self.selected_item = 0
         self.headings = ["Filename", "Size", "Percent", "Status"]
+        self.stdscr = stdscr
 
     def update(self):
         q = fetch_queue()
+
+    def construct_window(self):
+        self.window = self.stdscr.derwin(2, 0)
         
     def fetch_queue(self):
         pass

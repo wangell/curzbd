@@ -7,18 +7,27 @@ class QueueWindow(CurzbdWindow.CurzbdWindow):
 
     def __init__(self, stdscr, sab):
         self.sabnzbd = sab
-        self.window = stdscr.derwin(2, 0)
-        self.columns = [("Status",.05), ("Filename",.45), ("Size",.1), ("Progress",.1), ("Timeleft", .2)]
-        self.maxY,self.maxX = self.window.getmaxyx()
         self.padding = 5
-        self.maxX -= (self.padding * len(self.columns))
+        self.selected = 0
+        self.stdscr = stdscr
+
+        self.construct_window()
 
     def update(self):
         self.print_row(["Status", "Filename", "Size", "Progress", "Timeleft"], 0)
 
         q = self.fetch_queue()
         for s in range(0, min(len(q), self.maxY -1)):
-            self.print_row(q[s],s+1)
+            if s == self.selected:
+                self.print_row(q[s], s+1, curses.color_pair(3))
+            else:
+                self.print_row(q[s], s+1)
+
+    def construct_window(self):
+        self.window = self.stdscr.derwin(2, 0)
+        self.columns = [("Status",.05), ("Filename",.45), ("Size",.1), ("Progress",.1), ("Timeleft", .2)]
+        self.maxY,self.maxX = self.window.getmaxyx()
+        self.maxX -= (self.padding * len(self.columns))
 
     def fetch_queue(self):
         queue = self.sabnzbd.queue_output([])
@@ -36,12 +45,12 @@ class QueueWindow(CurzbdWindow.CurzbdWindow):
 
         return queue_filtered
 
-    def print_row(self, row, y):
+    def print_row(self, row, y, attr=0):
         self.columns_size = map(lambda x: round(x[1]*self.maxX), self.columns)
         q = zip(row, self.columns_size)
         curX = 0
         for (row_element, size) in q:
-            self.window.addstr(y, curX, row_element[:size])
+            self.window.addstr(y, curX, row_element[:size], attr)
             curX += size + self.padding
 
     def display(self):
@@ -51,12 +60,12 @@ class QueueWindow(CurzbdWindow.CurzbdWindow):
 
     def process_key(self, key):
         if key == 'KEY_DOWN':
-            if self.selected_index < len(self.queued) - 1:
-                self.selected_index += 1
+            if self.selected < self.maxY - 1:
+                self.selected += 1
             else:
-                self.selected_index = 0
+                self.selected = 0
         if key == 'KEY_UP':
-            if self.selected_index > 0:
-                self.selected_index -= 1
+            if self.selected > 0:
+                self.selected -= 1
             else:
-                self.selected_index = len(self.queued) - 1
+                self.selected = self.maxY - 1

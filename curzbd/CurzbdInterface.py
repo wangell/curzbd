@@ -52,6 +52,10 @@ class CurzbdInterface:
         self.windows = { 1 : queueWindow, 2 : historyWindow, 3 : configWindow, 4 : helpWindow }
         self.navbar = nav
 
+    def rebuild_windows(self):
+        for x in self.windows:
+            self.windows[x].construct_window()
+
     def __loop(self):
 
         while True:
@@ -73,7 +77,7 @@ class CurzbdInterface:
         if key in self.global_keys:
             self.global_keys[key](key)
         elif key == "KEY_RESIZE":
-            self.construct_windows()
+            self.rebuild_windows()
         else:
             self.windows[self.activeWindow].process_key(key)
 
